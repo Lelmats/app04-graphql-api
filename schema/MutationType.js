@@ -4,10 +4,14 @@ import ProductGroup from '../models/ProductGroup.js';
 
 import ProductGroupType from './ProductGroupType.js';
 import ProductType from './ProductType.js';
-import UserType from './UserType.js';
-import AddressType from './AddressType.js';
 import User from '../models/User.js';
+import UserType from './UserType.js';
 import Address from '../models/Address.js';
+import AddressType from './AddressType.js';
+import Order from '../models/Order.js';
+import OrderType from './OrderType.js';
+import Sale from '../models/Sale.js';
+import SaleType from './SaleType.js';
 
 const {GraphQLID, GraphQLString, GraphQLFloat,GraphQLObjectType} = graphql;
 
@@ -66,7 +70,6 @@ const MutationType = new GraphQLObjectType({
                 name: {type: GraphQLString}
             },
             resolve(parent, args){
-
                 return ProductGroup.findByIdAndUpdate(args.id, args);
             }
         },
@@ -86,7 +89,7 @@ const MutationType = new GraphQLObjectType({
                 phoneNumber: {type: GraphQLString},
                 birthDay: {type: GraphQLString},
                 email: {type: GraphQLString},
-                addressId: {type: GraphQLID}
+                addressId: {type: GraphQLID},
             },
             resolve(parent, args){
                 const user = new User(args);
@@ -106,7 +109,29 @@ const MutationType = new GraphQLObjectType({
                 const address = new Address(args);
                 return address.save();
             }
-        }
+        },
+        addOrder: {
+            type: OrderType,
+            args: {
+                userId: {type: GraphQLID}
+            }, 
+            resolve(parent, args){
+                const order = new Order(args);
+                return order.save();
+            }
+        },
+        addSale: {
+            type: SaleType,
+            args: {
+                productId: {type: GraphQLID},
+                orderId: {type: GraphQLID},
+                timeStamp: {type: GraphQLString}
+            }, 
+            resolve(parent, args){
+                const sale = new Sale(args);
+                return sale.save();
+            }
+        },
     }
 });
 

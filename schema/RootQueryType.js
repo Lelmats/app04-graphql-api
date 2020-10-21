@@ -4,11 +4,13 @@ import Product from '../models/Product.js';
 import ProductGroup from '../models/ProductGroup.js';
 import User from '../models/User.js';
 import Address from '../models/Address.js';
+import Order from '../models/Order.js';
 
 import ProductGroupType from './ProductGroupType.js';
 import ProductType from './ProductType.js';
 import UserType from './UserType.js';
 import AddressType from './AddressType.js';
+import OrderType from './OrderType.js';
 
 const {GraphQLID, GraphQLObjectType, GraphQLList} = graphql;
 
@@ -51,8 +53,8 @@ const RootQueryType = new GraphQLObjectType({
                 return ProductGroup.find();
             }
         },
-         //users
-         users: {
+        //users
+        users: {
             type: new GraphQLList(UserType),
             resolve(parent, args){
                 return User.find();
@@ -62,7 +64,20 @@ const RootQueryType = new GraphQLObjectType({
         addresses: {
             type: new GraphQLList(AddressType),
             resolve(parent, args){
-                return AddressType.find();
+                return Address.find();
+            }
+        },
+        orders: {
+            type: new GraphQLList(OrderType),
+            args: {id: {type: GraphQLID}},
+            resolve(parent, args){
+                return Order.findById(args.id);
+            }
+        },
+        orders: {
+            type: new GraphQLList(OrderType),
+            resolve(parent, args){
+                return Order.find();
             }
         }
     }

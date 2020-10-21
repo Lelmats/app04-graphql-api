@@ -5,7 +5,8 @@ const {Schema} = mongoose;
 const ProductSchema = new Schema({
     name: String,
     price: Number,
-    productGroupId: String
+    productGroupId: String,
+    orderId: String
 });
 
 export default mongoose.model('Product', ProductSchema);

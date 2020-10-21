@@ -1,5 +1,4 @@
 import graphql from 'graphql';
-
 import RootQueryType from './RootQueryType.js';
 import MutationType from './MutationType.js';
 

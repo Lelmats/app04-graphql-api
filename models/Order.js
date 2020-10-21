@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const {Schema} = mongoose;
 
-const OrderGroupSchema = new Schema({
-    name: String
+const OrderSchema = new Schema({
+    userId: String,
 });
 
-export default mongoose.model('Orders', OrderGroupSchema);
+export default mongoose.model('Order', OrderSchema);

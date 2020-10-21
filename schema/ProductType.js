@@ -1,5 +1,6 @@
 import graphql from 'graphql';
 import ProductGroupType from './ProductGroupType.js';
+import ProductGroup from '../models/ProductGroup.js';
 
 const {GraphQLID, GraphQLString, GraphQLObjectType} = graphql;
 
